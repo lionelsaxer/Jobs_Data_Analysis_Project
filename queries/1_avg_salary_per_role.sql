@@ -11,7 +11,7 @@ FROM
 
 -- Compute average salary grouped by job title.
 SELECT
-    job_title_short,
+    job_title_short AS role,
     AVG(salary_year_avg) AS avg_yearly_salary
 FROM
     job_postings_fact
@@ -21,4 +21,4 @@ WHERE
     job_schedule_type = 'Full-time' AND
     salary_year_avg IS NOT NULL
 GROUP BY
-    job_title_short
+    role
