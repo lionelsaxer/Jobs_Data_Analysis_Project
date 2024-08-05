@@ -17,7 +17,7 @@ WITH filtered_jobs AS (
 SELECT
     job_title_short,
     skills,
-    COUNT(*) AS post_count
+    COUNT(skills_job_dim.job_id) AS demand_count
 FROM
     filtered_jobs
 INNER JOIN skills_job_dim ON filtered_jobs.job_id = skills_job_dim.job_id
