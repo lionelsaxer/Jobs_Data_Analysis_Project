@@ -13,6 +13,7 @@ WITH filtered_jobs AS (
         job_schedule_type = 'Full-time'
 )
 
+-- Join with skills tables and count number of job posts for a specific skill
 SELECT
     job_title_short,
     skills,
