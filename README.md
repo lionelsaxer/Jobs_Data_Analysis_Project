@@ -18,7 +18,7 @@ There are plenty of different roles in today's data job market. However, it is n
 To dive into the data and derive insights, I harness the power of several key tools.
 
 - **SQL**: The basis for my analysis. It allows me to access and query the data set on data job postings provided by the Youtuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/).
-- **Python**: Used to futher clean and visualize the data set to obtain answers for the questions posed.
+- **Python**: Used to futher clean and present the insights to obtain answers for the questions posed.
 - **PostgreSQL**: The data base management system chosen for this project.
 - **Visual Studio Code**: My favorite code editor for analyzing data.
 - **Git & GitHub**: Crucial for version control and sharing scripts and analyses, ensuring collaboration and project tackling.
