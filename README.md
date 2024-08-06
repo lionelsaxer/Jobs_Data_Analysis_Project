@@ -115,7 +115,7 @@ GROUP BY
     role, skills
 ```
 
-Based on this query, I used Python to extract the top 5 required skills by role. 
+Based on this query, I used Python to extract and visualize the top 5 required skills by role. 
 
 ```py
 # Read data
@@ -147,9 +147,8 @@ plt.savefig('plots/skills.png', dpi=300, bbox_inches='tight')
 <img src='plots/skills.png' alt='Top skills'>
 
 **Insights**: 
-- The top five skills for Business Analysts are: SQL, Excel, Tableau, Power BI, and Python.
-- For Data Analysts, the top five skills are similar: SQL, Excel, Python, Tableau, and Power BI.
-- In contrast, the top skills for Data Scientists are slightly different: Python, SQL, R, Tableau, and SAS.
+- The top five skills for Business Analysts and Data Analysts are very similar. For both roles, SQL and Excel lead the list and also include Tableau, Power BI and Python.
+- In contrast, the top five skills for Data Scientists are slightly different. The list additionally includes R and SAS but does not include Excel.
 
 # What I learned
 # Conclusions
