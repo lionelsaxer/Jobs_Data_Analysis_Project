@@ -10,7 +10,8 @@ WITH filtered_jobs AS (
     WHERE
         job_title_short IN ('Business Analyst', 'Data Analyst', 'Data Scientist') AND
         NOT job_location = 'Anywhere' AND
-        job_schedule_type = 'Full-time'
+        job_schedule_type = 'Full-time' AND
+        salary_year_avg IS NOT NULL
 )
 
 -- Join with skills tables and count number of job posts for a specific skill
