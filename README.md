@@ -201,5 +201,7 @@ plt.tight_layout(rect=[-1, -1, 1, 1])
 plt.savefig('plots/top_paid_skills.png', dpi=300, bbox_inches='tight')
 ```
 
+<img src='plots/top_paid_skills.png' alt='Top-paying Skills'>
+
 # What I learned
 # Conclusions
