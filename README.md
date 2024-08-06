@@ -208,7 +208,101 @@ plt.savefig('plots/top_paid_skills.png', dpi=300, bbox_inches='tight')
 - The top-paying skills greatly differ depending on the job role.
 - It seems likely that the demand for most of these top-paying skills is rather small.
 
-### 4. Optimal Skills to Learn as a Data Analyst
+### 4. Optimal Skills to Learn
+Ultimately, the optimal skills to learn should not only pay well but also be in high demand. Therefore, I include both information about the skill demand and the average annual salary associated with a speicific skill.
+
+```sql
+-- CTE to filter jobs
+WITH filtered_jobs AS (
+    SELECT *
+    FROM 
+        job_postings_fact
+    WHERE
+        job_title_short IN ('Business Analyst', 'Data Analyst', 'Data Scientist') AND
+        NOT job_location = 'Anywhere' AND
+        job_schedule_type = 'Full-time' AND
+        salary_year_avg IS NOT NULL
+),
+
+-- Define CTE for skill demand
+skill_demand AS (
+    SELECT
+        job_title_short AS role,
+        skills_dim.skill_id,
+        skills_dim.skills,
+        COUNT(skills_job_dim.job_id) AS demand_count
+    FROM
+        filtered_jobs
+    INNER JOIN skills_job_dim ON filtered_jobs.job_id = skills_job_dim.job_id
+    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    GROUP BY
+        role, skills_dim.skill_id
+),
+
+-- Define CTE for skill salary
+skill_salary AS (
+    SELECT
+        job_title_short AS role,
+        skills_dim.skill_id,
+        ROUND(AVG(salary_year_avg), 0) AS avg_yearly_salary
+    FROM
+        filtered_jobs
+    INNER JOIN skills_job_dim ON filtered_jobs.job_id = skills_job_dim.job_id
+    INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+    GROUP BY
+        role, skills_dim.skill_id
+)
+
+-- Combine CTEs
+SELECT
+    skill_demand.role,
+    skill_demand.skill_id,
+    skill_demand.skills,
+    demand_count,
+    avg_yearly_salary
+FROM
+    skill_demand
+INNER JOIN skill_salary ON skill_demand.skill_id = skill_salary.skill_id
+AND skill_demand.role = skill_salary.role
+```
+
+I use Python to select only those skills that exceed the 90th percentile per job role and order them by their associated average yearly salary. This gives us the skills which are not only high in demand but also well-paid.
+
+```py
+# Read data
+df_optimal_skills = pd.read_csv('./data/4_optimal_skills.csv')
+
+# Compute 90th percentile of demand_count per role and add it to df
+df_percentiles = df_optimal_skills \
+    .groupby('role')['demand_count'] \
+    .apply(lambda x: np.percentile(x, 90))
+
+df_optimal_skills = df_optimal_skills.join(df_percentiles, on='role', rsuffix='_90th')
+
+# Filter only rows exceeding the 90th percentile
+df_optimal_skills = df_optimal_skills[df_optimal_skills['demand_count'] > df_optimal_skills['demand_count_90th']] \
+                        .drop('demand_count_90th', axis=1)
+
+# Write function to display the optimal skills
+def display_optimal_skills(role, df=df_optimal_skills):
+    df = df[df['role'] == role] \
+    .sort_values(by='avg_yearly_salary', ascending=False) \
+    .drop('skill_id', axis=1) \
+    .reset_index(drop=True)
+    return df
+
+# Optimal skills for Business Analysts
+display_optimal_skills('Business Analyst').head()
+```
+
+| Role             | Skills    | Demand Count | Average Annual Salary |
+|------------------|-----------|--------------|-----------------------|
+| Business Analyst | snowflake | 31           | 113611                |
+| Business Analyst | r         | 57           | 107081                |
+| Business Analyst | python    | 109          | 103194                |
+| Business Analyst | tableau   | 172          | 98297                 |
+| Business Analyst | flow      | 43           | 95082                 |
+
 
 # What I learned
 # Conclusions
