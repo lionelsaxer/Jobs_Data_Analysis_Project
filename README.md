@@ -14,17 +14,17 @@ There are plenty of different roles in today's data job market. However, it is n
 3. Which are the top-paying skills for Business Analysts, Data Analysts, and Data Scientists?
 4. Which are the optimal skills to learn for Business Analysts, Data Analysts, and Data Scientists?
 
-# Tools I Used
-To dive into the data and derive insights, I harnessed the power of several key tools.
+# Tools I Use
+To dive into the data and derive insights, I harness the power of several key tools.
 
-- **SQL**: The basis for my analysis. It allowed me to access and query the data set on data job postings provided by the Youtuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/).
+- **SQL**: The basis for my analysis. It allows me to access and query the data set on data job postings provided by the Youtuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/).
 - **Python**: Used to futher clean and visualize the data set to obtain answers for the questions posed.
 - **PostgreSQL**: The data base management system chosen for this project.
-- **Visual Studio Code**: My favorite code editor for data analysis.
+- **Visual Studio Code**: My favorite code editor for analyzing data.
 - **Git & GitHub**: Crucial for version control and sharing scripts and analyses, ensuring collaboration and project tackling.
 
 # Analysis
-Each SQL-query for this project tackled one of the questions I had about the data job market.
+Each SQL-query for this project tackled one of the questions I have about the data job market.
 Here's how I approached each question:
 
 ### 1. Average Salary
@@ -52,7 +52,7 @@ GROUP BY
     role
 ```
 
-Based on this query, I then visualized the average salaries in a bar chart.
+Based on this query, I visualize the average salaries in a bar chart using Python.
 
 ```py
 # Import packages
@@ -87,7 +87,7 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
 - All roles are well paid with an average salary of over 80'000 USD per year.
 
 ### 2. Top Skills per Role
-To reveal the top required skills for Business Analysts, Data Analysts, and Data Scientists, I again filtered for these roles and focused on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I joined them with the CTE.
+To reveal the top required skills for Business Analysts, Data Analysts, and Data Scientists, I again filter for these roles and focus on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I join them with the CTE.
 
 ```sql
 -- CTE to filter the jobs, i.e., only looking at onsite and full-time jobs for BA, DA and DSc
@@ -115,7 +115,7 @@ GROUP BY
     role, skills
 ```
 
-Based on this query, I used Python to extract and visualize the top 5 required skills by role. 
+Based on this query, I use Python to extract and visualize the top 5 required skills by role.
 
 ```py
 # Read data
@@ -149,6 +149,57 @@ plt.savefig('plots/skills.png', dpi=300, bbox_inches='tight')
 **Insights**: 
 - The top five skills for Business Analysts and Data Analysts are very similar. For both roles, SQL and Excel lead the list and also include Tableau, Power BI and Python.
 - In contrast, the top five skills for Data Scientists are slightly different. The list additionally includes R and SAS but does not include Excel.
+
+### 3. Top-paying Skills per Role
+Filtering the job posts as previously, I compute the average salary per skill and role.
+
+```sql
+-- CTE to filter jobs
+WITH filtered_jobs AS (
+    SELECT *
+    FROM 
+        job_postings_fact
+    WHERE
+        job_title_short IN ('Business Analyst', 'Data Analyst', 'Data Scientist') AND
+        NOT job_location = 'Anywhere' AND
+        job_schedule_type = 'Full-time' AND
+        salary_year_avg IS NOT NULL
+)
+
+-- Compute average salary per skill and role
+SELECT
+    job_title_short AS role,
+    skills,
+    ROUND(AVG(salary_year_avg), 0) AS avg_yearly_salary
+FROM
+    filtered_jobs
+INNER JOIN skills_job_dim ON filtered_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+GROUP BY
+    skills, role
+```
+
+Similarly to question 2, I display the top-paying skills per role in bar chart created with Python.
+
+```py
+# Read data
+df_pay_skills = pd.read_csv('./data/3_top_paid_skills.csv')
+
+# Group df by role and find 5 highest-paying skills
+df_pay_skills_grouped = df_pay_skills.groupby('role') \
+    .apply(lambda x: x.nlargest(5, 'avg_yearly_salary'), include_groups=False) \
+    .reset_index(drop=False) \
+    .drop('level_1', axis=1)
+
+# Plot
+_, axes = plt.subplots(3, 1)
+
+for i, role in enumerate(df_pay_skills_grouped['role'].unique()):
+    plot_by_role(df_pay_skills_grouped, role, axes[i], 'avg_yearly_salary', 'Average Annual Salary (in USD)')
+
+plt.tight_layout(rect=[-1, -1, 1, 1])
+plt.savefig('plots/top_paid_skills.png', dpi=300, bbox_inches='tight')
+```
 
 # What I learned
 # Conclusions
