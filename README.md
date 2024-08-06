@@ -1,7 +1,7 @@
 # Introduction
 Dive into the data job market 💼 📊! Explore the top skills and salaries of 👨‍💼 Business Analysts, 🧑‍💻 Data Analysts, and 🧑‍🔬 Data Scientists.
 
-Check out the SQL queries here: [SQL queries](/queries/)
+Check out the SQL queries here: [SQL queries](/queries/) \
 Looking for the Python Code? Check out the Jupyter Notebook here: [Jupyter Notebook](/results.ipynb/)
 
 # Background
@@ -202,6 +202,13 @@ plt.savefig('plots/top_paid_skills.png', dpi=300, bbox_inches='tight')
 ```
 
 <img src='plots/top_paid_skills.png' alt='Top-paying Skills'>
+
+**Insights**:
+- For all job roles, the top-paying skills are relatively niche.
+- The top-paying skills greatly differ depending on the job role.
+- It seems likely that the demand for most of these top-paying skills is rather small.
+
+### 4. Optimal Skills to Learn as a Data Analyst
 
 # What I learned
 # Conclusions
