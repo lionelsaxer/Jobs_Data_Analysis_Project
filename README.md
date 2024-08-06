@@ -329,5 +329,9 @@ display_optimal_skills('Data Scientist').head()
 | Data Scientist | tensorflow    | 483          | 141164                |
 | Data Scientist | scikit-learn  | 302          | 140625                |
 
+**Insights**:
+- In addition to Python, cloud computing skills such as Snowflake, AWS, and Azure are important skills to learn as Business Analysts and Data Analysts.
+- For Data Scientists, Python libraries for Machine Learning such as Pytorch, Tensorflow, and Scikit-Learn are significant skills to learn.
+
 # What I learned
 # Conclusions
