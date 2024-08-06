@@ -295,7 +295,7 @@ def display_optimal_skills(role, df=df_optimal_skills):
 display_optimal_skills('Business Analyst').head()
 ```
 
-| Role             | Skills    | Demand Count | Average Annual Salary |
+| Role             | Skill     | Demand Count | Average Annual Salary |
 |------------------|-----------|--------------|-----------------------|
 | Business Analyst | snowflake | 31           | 113611                |
 | Business Analyst | r         | 57           | 107081                |
@@ -303,6 +303,31 @@ display_optimal_skills('Business Analyst').head()
 | Business Analyst | tableau   | 172          | 98297                 |
 | Business Analyst | flow      | 43           | 95082                 |
 
+```py
+# Optimal Skills for Data Analysts
+display_optimal_skills('Data Analyst').head()
+```
+
+| Role         | Skill     | Demand Count | Average Annual Salary |
+|--------------|-----------|--------------|-----------------------|
+| Data Analyst | snowflake | 189          | 112746                |
+| Data Analyst | aws       | 242          | 106936                |
+| Data Analyst | looker    | 201          | 105154                |
+| Data Analyst | azure     | 269          | 104879                |
+| Data Analyst | python    | 1501         | 102023                |
+
+```py
+# Optimal Skills for Data Scientists
+display_optimal_skills('Data Scientist').head()
+```
+
+| Role           | Skill         | Demand Count | Average Annual Salary |
+|----------------|---------------|--------------|-----------------------|
+| Data Scientist | pytorch       | 419          | 143839                |
+| Data Scientist | spark         | 746          | 143445                |
+| Data Scientist | scala         | 295          | 142176                |
+| Data Scientist | tensorflow    | 483          | 141164                |
+| Data Scientist | scikit-learn  | 302          | 140625                |
 
 # What I learned
 # Conclusions
