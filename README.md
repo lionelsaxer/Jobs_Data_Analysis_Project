@@ -28,7 +28,7 @@ Each SQL-query for this project tackled one of the questions I had about the dat
 Here's how I approached each question:
 
 ### 1. Average Salary
-To obtain the average salary for Business Analysts, Data Analysts, and Data Scientists, I filtered the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I excluded remote jobs and focused on full-time jobs.
+To obtain the average salaries for Business Analysts, Data Analysts, and Data Scientists, I filtered the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I excluded remote jobs and focused on full-time jobs.
 
 ```sql
 -- Let's have a look at the different job titles in the data set.
@@ -84,7 +84,65 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
 **Insights**: 
 - The average salary is highest for Data Scientists and lowest for Business Analysts.
 - The difference in average salary between Data Scientists and Business Analysts (or Data Analysts) is much larger than the difference in average salary between Business Analysts and Data Analysts.
+- All roles are well paid with an average salary of over 80'000 USD per year.
 
+### 2. Top Skills per Role
+To reveal the top required skills for Business Analysts, Data Analysts, and Data Scientists, I again filtered for these roles and focused on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I joined them with the CTE.
+
+```sql
+-- CTE to filter the jobs, i.e., only looking at onsite and full-time jobs for BA, DA and DSc
+WITH filtered_jobs AS (
+    SELECT *
+    FROM 
+        job_postings_fact
+    WHERE
+        job_title_short IN ('Business Analyst', 'Data Analyst', 'Data Scientist') AND
+        NOT job_location = 'Anywhere' AND
+        job_schedule_type = 'Full-time' AND
+        salary_year_avg IS NOT NULL
+)
+
+-- Join with skills tables and count number of job posts for a specific skill
+SELECT
+    job_title_short AS role,
+    skills,
+    COUNT(skills_job_dim.job_id) AS demand_count
+FROM
+    filtered_jobs
+INNER JOIN skills_job_dim ON filtered_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+GROUP BY
+    role, skills
+```
+
+```py
+# Read data
+df_skills = pd.read_csv('./data/2_skills.csv')
+
+# Group df by role and find 5 most common skills
+df_skills_grouped = df_skills.groupby('role') \
+    .apply(lambda x: x.nlargest(5, 'demand_count'), include_groups=False) \
+    .reset_index(drop=False) \
+    .drop('level_1', axis=1)
+
+# Write helper function for plot
+def plot_by_role(df_skills_grouped, role, ax, x_axis, x_label):
+    temp = df_skills_grouped[df_skills_grouped['role'] == role].sort_values(by=x_axis, ascending=True)
+    ax.barh(temp['skills'], temp[x_axis])
+    ax.set_title(role)
+    ax.set_xlabel(x_label)
+
+# Plot
+_, axes = plt.subplots(3, 1)
+
+for i, role in enumerate(df_skills_grouped['role'].unique()):
+    plot_by_role(df_skills_grouped, role, axes[i], 'demand_count', '# Job Posts')
+
+plt.tight_layout(rect=[-1, -1, 1, 1])
+plt.savefig('plots/skills.png', dpi=300, bbox_inches='tight')
+```
+
+<fig src='plots/skills.png' alt='Top skills'>
 
 # What I learned
 # Conclusions
