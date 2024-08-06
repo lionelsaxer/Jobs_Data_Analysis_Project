@@ -79,7 +79,7 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
                      title='Average Salary per Job Role');
 ```
 
-![Average salaries](/plots/avg_salaries.png)
+<img src='plots/avg_salaries.png' width=800 alt='Average salaries'>
 
 # What I learned
 # Conclusions
