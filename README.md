@@ -79,7 +79,12 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
                      title='Average Salary per Job Role');
 ```
 
-<img src='plots/avg_salaries.png' width=600 alt='Average salaries' style="display: block; margin: 0 auto;">
+<img src='plots/avg_salaries.png' width=800 alt='Average salaries'>
+
+**Insights**: 
+- The average salary is highest for Data Scientists and lowest for Business Analysts.
+- The difference in average salary between Data Scientists and Business Analysts (or Data Analysts) is much larger than the difference in average salary between Business Analysts and Data Analysts.
+
 
 # What I learned
 # Conclusions
