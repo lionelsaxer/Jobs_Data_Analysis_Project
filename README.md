@@ -28,13 +28,9 @@ Each SQL-query for this project tackled one of the questions I had about the dat
 Here's how I approached each question:
 
 ### 1. Average Salary
-To obtain the average salary for Business Analysts, Data Analysts, and Data Scientists, I filtered the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I excluded remote jobs and focused on full-time jobs. Based on this query, I then visualized the average salaries in a bar chart.
+To obtain the average salary for Business Analysts, Data Analysts, and Data Scientists, I filtered the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I excluded remote jobs and focused on full-time jobs.
 
 ```sql
-/*
-Question: How does the average salary differ between Business Analysts, Data Analysts, and Data Scientists?
-*/
-
 -- Let's have a look at the different job titles in the data set.
 SELECT
     DISTINCT(job_title_short)
@@ -54,6 +50,33 @@ WHERE
     salary_year_avg IS NOT NULL
 GROUP BY
     role
+```
+
+Based on this query, I then visualized the average salaries in a bar chart.
+
+```py
+# Import packages
+import numpy as np, pandas as pd
+import matplotlib.pyplot as plt
+
+# Adjust default matplotlib settings
+plt.style.use('tableau-colorblind10')
+plt.rcParams['font.size'] = 12
+plt.rcParams['lines.linewidth'] = 2
+plt.rcParams['axes.titlepad'] = 10
+plt.rcParams['axes.labelpad'] = 10
+plt.rcParams['font.family'] = 'sans-serif'
+
+# Read csv
+df_avg_salaries = pd.read_csv('./data/1_avg_salary.csv')
+
+# Create new column to display salary in 1000s
+df_avg_salaries['avg_yearly_salary_1000'] = df_avg_salaries['avg_yearly_salary'] / 1000
+
+# Plot
+df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
+                     xlabel='Salary (in 1000 USD)', ylabel='', legend='',
+                     title='Average Salary per Job Role');
 ```
 
 # What I learned
