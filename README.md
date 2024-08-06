@@ -5,7 +5,7 @@ Check out the SQL queries here: [SQL queries](/queries/)
 Looking for the Python Code? Check out the Jupyter Notebook here: [Jupyter Notebook](/results.ipynb/)
 
 # Background
-There are plenty of different roles in today's data job market. However, it is not always clear how the roles of Business Analysts, Data Analysts, and Data Scientists differ.
+There are plenty of different roles in today's data job market. However, it is not always clear how the roles of 👨‍💼 Business Analysts, 🧑‍💻 Data Analysts, and 🧑‍🔬 Data Scientists differ.
 
 ### This project aims to answer the following questions:
 
