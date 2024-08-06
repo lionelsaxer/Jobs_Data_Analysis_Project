@@ -12,7 +12,7 @@ FROM
 -- Compute average salary grouped by job title.
 SELECT
     job_title_short AS role,
-    AVG(salary_year_avg) AS avg_yearly_salary
+    ROUND(AVG(salary_year_avg), 0) AS avg_yearly_salary
 FROM
     job_postings_fact
 WHERE

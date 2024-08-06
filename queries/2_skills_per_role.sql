@@ -1,8 +1,8 @@
 /*
-Question: How do the top skills required compared between Business Analysts (BA), Data Analysts (DA), and Data Scientists (DSc)?
+Question: How do the top required skills compare between Business Analysts (BA), Data Analysts (DA), and Data Scientists (DSc)?
 */
 
--- Filter the jobs, i.e., only looking at onsite and full-time jobs for BA, DA and DSc
+-- CTE to filter the jobs, i.e., only looking at onsite and full-time jobs for BA, DA and DSc
 WITH filtered_jobs AS (
     SELECT *
     FROM 

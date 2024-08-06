@@ -1,3 +1,8 @@
+/*
+Question: Which are the top-paying skills depending on the role?
+*/
+
+-- CTE to filter jobs
 WITH filtered_jobs AS (
     SELECT *
     FROM 
@@ -9,10 +14,11 @@ WITH filtered_jobs AS (
         salary_year_avg IS NOT NULL
 )
 
+-- Compute average salary per skill and role
 SELECT
     job_title_short AS role,
     skills,
-    AVG(salary_year_avg) AS avg_yearly_salary
+    ROUND(AVG(salary_year_avg), 0) AS avg_yearly_salary
 FROM
     filtered_jobs
 INNER JOIN skills_job_dim ON filtered_jobs.job_id = skills_job_dim.job_id
