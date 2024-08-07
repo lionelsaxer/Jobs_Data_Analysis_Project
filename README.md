@@ -81,7 +81,9 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
                      title='Average Salary per Job Role');
 ```
 
-<img src='plots/avg_salaries.png' width=800 alt='Average salaries'>
+<div style="text-align: center;">
+    <img src='plots/avg_salaries.png' width=600 alt='Average salaries'>
+</div>
 
 **Insights**: 
 - The average salary is highest for Data Scientists and lowest for Business Analysts.
@@ -152,9 +154,7 @@ plt.tight_layout(rect=[-1, -1, 1, 1])
 plt.savefig('plots/skills.png', dpi=300, bbox_inches='tight')
 ```
 
-<div style="text-align: center;">
-    <img src="plots/skills.png" alt="Top skills" width="300">
-</div>
+<img src="plots/skills.png" alt="Top skills">
 
 **Insights**: 
 - The top five skills for Business Analysts and Data Analysts are very similar. For both roles, SQL and Excel lead the list and also include Tableau, Power BI and Python.
