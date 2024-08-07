@@ -82,7 +82,7 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
 ```
 
 <p align='center'>
-    <img src='plots/avg_salaries.png' width=600 alt='Average salaries'>
+    <img src='plots/avg_salaries.png' width=400 alt='Average salaries'>
 </p>
 
 **Insights**: 
