@@ -17,7 +17,7 @@ There are plenty of different roles in today's data job market. However, it is n
 The data set contains a multitude of job postings in the area of data from all around the world. It was collected by the YouTuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/) to gain insights about the desired skills and salaries in the data job market. The full data set can be accessed here: <https://datanerd.tech/>.
 
 # Tools I Use
-To dive into the data and derive insights, I harness the power of several key tools.
+To dive into the data and derive insights, I harness the power of several key 🛠️ tools.
 
 - **SQL**: The basis for my analysis. It allows me to access and query the data set on data job postings.
 - **Python**: Used to futher clean and present the insights to obtain answers for the questions posed.
@@ -26,8 +26,8 @@ To dive into the data and derive insights, I harness the power of several key to
 - **Git & GitHub**: Crucial for version control and sharing scripts and analyses, ensuring collaboration and project tackling.
 
 # Analysis
-Each SQL-query for this project tackled one of the questions I have about the data job market.
-Here's how I approached each question:
+Each SQL-query for this project tackles one of the questions I have about the data job market.
+Here's how I approach each question:
 
 ### 1. Average Salary
 To obtain the average salaries for Business Analysts, Data Analysts, and Data Scientists, I filter the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I exclude remote jobs and focus on full-time jobs.
