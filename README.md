@@ -8,16 +8,18 @@ Looking for the Python Code? Check out the Jupyter Notebook here: [Jupyter Noteb
 There are plenty of different roles in today's data job market. However, it is not entirely clear how the roles of 👨‍💼 Business Analysts, 🧑‍💻 Data Analysts, and 🧑‍🔬 Data Scientists differ.
 
 ### This project aims to answer the following questions:
-
 1. How does the average salary compare between Business Analysts, Data Analysts, and Data Scientists?
-2. How do the required skills differ between Business Analysts, Data Analysts, and Data Scientists?
+2. How do the desired skills differ between Business Analysts, Data Analysts, and Data Scientists?
 3. Which are the top-paying skills for Business Analysts, Data Analysts, and Data Scientists?
 4. Which are the optimal skills to learn for Business Analysts, Data Analysts, and Data Scientists?
+
+### Data Source
+The data set contains a multitude of job postings in the area of data from all around the world. It was collected by the YouTuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/) to gain insights about the desired skills and salaries in the data job market. The full data set can be accessed here: <https://datanerd.tech/>.
 
 # Tools I Use
 To dive into the data and derive insights, I harness the power of several key tools.
 
-- **SQL**: The basis for my analysis. It allows me to access and query the data set on data job postings provided by the Youtuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/).
+- **SQL**: The basis for my analysis. It allows me to access and query the data set on data job postings.
 - **Python**: Used to futher clean and present the insights to obtain answers for the questions posed.
 - **PostgreSQL**: The data base management system chosen for this project.
 - **Visual Studio Code**: My favorite code editor for analyzing data.
@@ -28,7 +30,7 @@ Each SQL-query for this project tackled one of the questions I have about the da
 Here's how I approached each question:
 
 ### 1. Average Salary
-To obtain the average salaries for Business Analysts, Data Analysts, and Data Scientists, I filtered the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I excluded remote jobs and focused on full-time jobs.
+To obtain the average salaries for Business Analysts, Data Analysts, and Data Scientists, I filter the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I exclude remote jobs and focus on full-time jobs.
 
 ```sql
 -- Let's have a look at the different job titles in the data set.
@@ -87,7 +89,7 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
 - All roles are well paid with an average salary of over 80'000 USD per year.
 
 ### 2. Top Skills per Role
-To reveal the top required skills for Business Analysts, Data Analysts, and Data Scientists, I again filter for these roles and focus on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I join them with the CTE.
+To reveal the top desired skills for Business Analysts, Data Analysts, and Data Scientists, I again filter for these roles and focus on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I join them with the CTE.
 
 ```sql
 -- CTE to filter the jobs, i.e., only looking at onsite and full-time jobs for BA, DA and DSc
@@ -115,7 +117,7 @@ GROUP BY
     role, skills
 ```
 
-Based on this query, I use Python to extract and visualize the top 5 required skills by role.
+Based on this query, I use Python to extract and visualize the top 5 desired skills by role.
 
 ```py
 # Read data
@@ -126,6 +128,12 @@ df_skills_grouped = df_skills.groupby('role') \
     .apply(lambda x: x.nlargest(5, 'demand_count'), include_groups=False) \
     .reset_index(drop=False) \
     .drop('level_1', axis=1)
+
+# Adjust skill names
+df_skills_grouped['skills'] = df_skills_grouped['skills'].str.capitalize()
+df_skills_grouped['skills'] = df_skills_grouped['skills'].replace(
+    {'Power bi': 'Power BI', 'Sql': 'SQL','Sas': 'SAS'}
+)
 
 # Write helper function for plot
 def plot_by_role(df_skills_grouped, role, ax, x_axis, x_label):
@@ -144,7 +152,9 @@ plt.tight_layout(rect=[-1, -1, 1, 1])
 plt.savefig('plots/skills.png', dpi=300, bbox_inches='tight')
 ```
 
-<img src='plots/skills.png' alt='Top skills'>
+<div style="text-align: center;">
+    <img src="plots/skills.png" alt="Top skills" width="300">
+</div>
 
 **Insights**: 
 - The top five skills for Business Analysts and Data Analysts are very similar. For both roles, SQL and Excel lead the list and also include Tableau, Power BI and Python.
@@ -191,6 +201,13 @@ df_pay_skills_grouped = df_pay_skills.groupby('role') \
     .reset_index(drop=False) \
     .drop('level_1', axis=1)
 
+# Adjust skill names
+df_pay_skills_grouped['skills'] = df_pay_skills_grouped['skills'].str.capitalize()
+df_pay_skills_grouped['skills'] = df_pay_skills_grouped['skills'].replace(
+    {'Numpy': 'NumPy', 'Jquery': 'jQuery', 'Svn': 'SVN', 'Mxnet': 'MXNet',
+     'Codecommit': 'CodeCommit', 'Ruby on rails': 'Ruby on Rails'}
+)
+
 # Plot
 _, axes = plt.subplots(3, 1)
 
@@ -209,7 +226,7 @@ plt.savefig('plots/top_paid_skills.png', dpi=300, bbox_inches='tight')
 - It seems likely that the demand for most of these top-paying skills is rather small.
 
 ### 4. Optimal Skills to Learn
-Ultimately, the optimal skills to learn should not only pay well but also be in high demand. Therefore, I include both information about the skill demand and the average annual salary associated with a speicific skill.
+Ultimately, the optimal skills to learn should not only pay well but also be in high demand. Therefore, I include both information about the skill demand and the average annual salary associated with a specific skill.
 
 ```sql
 -- CTE to filter jobs
