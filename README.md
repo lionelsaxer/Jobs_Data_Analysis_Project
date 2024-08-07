@@ -11,7 +11,7 @@ There are plenty of different roles in today's data job market. However, it is n
 1. How does the average salary compare between Business Analysts, Data Analysts, and Data Scientists?
 2. How do the desired skills differ between Business Analysts, Data Analysts, and Data Scientists?
 3. Which are the top-paying skills for Business Analysts, Data Analysts, and Data Scientists?
-4. Which are the optimal skills to learn for Business Analysts, Data Analysts, and Data Scientists?
+4. Which are the best skills to learn for Business Analysts, Data Analysts, and Data Scientists?
 
 ### Data Source
 The data set contains a multitude of job postings in the area of data from all around the world. It was collected by the YouTuber and Data Analyst [Luke Barousse](https://www.lukebarousse.com/) to gain insights about the desired skills and salaries in the data job market. The full data set can be accessed here: <https://datanerd.tech/>.
@@ -23,14 +23,14 @@ To dive into the data and derive insights, I harness the power of several key to
 - **Python**: Used to futher clean and present the insights to obtain answers for the questions posed.
 - **PostgreSQL**: The data base management system chosen for this project.
 - **Visual Studio Code**: My favorite code editor for analyzing data.
-- **Git & GitHub**: Crucial for version control and sharing scripts and analyses, ensuring collaboration and project tackling.
+- **Git & GitHub**: Crucial for version control and sharing scripts and analyses, ensuring collaboration and project tracking.
 
 # Analysis
-Each SQL-query for this project tackles one of the questions I have about the data job market.
+Each SQL query for this project tackles one of the questions I have about the data job market.
 Here's how I approach each question:
 
 ### 1. Average Salary per Role
-To obtain the average salaries for Business Analysts, Data Analysts, and Data Scientists, I filter the data to only include Business Analysts, Data Analysts, and Data Scientists. Moreover, I exclude remote jobs and focus on full-time jobs.
+To obtain the average salaries for Business Analysts, Data Analysts, and Data Scientists, I filter the data to only include these roles. Moreover, I exclude remote jobs and focus on full-time jobs.
 
 ```sql
 -- Let's have a look at the different job titles in the data set.
@@ -86,12 +86,12 @@ df_avg_salaries.plot(x='role', y='avg_yearly_salary_1000', kind='barh',
 </p>
 
 **Insights**: 
-- The average salary is highest for Data Scientists and lowest for Business Analysts.
+- The average salary is highest for 🧑‍🔬 Data Scientists and lowest for 👨‍💼 Business Analysts.
 - The difference in average salary between 🧑‍🔬 Data Scientists and 👨‍💼 Business Analysts (or 🧑‍💻 Data Analysts) is much larger than the difference in average salary between 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts.
-- All roles are well paid with an average salary of over 80'000 USD per year.
+- All roles pay well with an average salary of over 80'000 USD per year.
 
 ### 2. Top Skills per Role
-To reveal the top desired skills for Business Analysts, Data Analysts, and Data Scientists, I again filter for these roles and focus on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I join them with the CTE.
+To reveal the top desired skills for Business Analysts, Data Analysts, and Data Scientists, I filter for these roles and focus on onsite, full-time jobs using a CTE. As the skills required for a specific job are contained in two other tables, I join them with the CTE.
 
 ```sql
 -- CTE to filter the jobs, i.e., only looking at onsite and full-time jobs for BA, DA and DSc
@@ -157,7 +157,7 @@ plt.savefig('plots/skills.png', dpi=300, bbox_inches='tight')
 <img src="plots/skills.png" alt="Top skills">
 
 **Insights**: 
-- The top five skills for 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts are very similar. For both roles, SQL and Excel lead the list and also include Tableau, Power BI and Python.
+- The top five skills for 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts are very similar. For both roles, SQL and Excel lead the list and also include Tableau, Power BI, and Python.
 - In contrast, the top five skills for 🧑‍🔬 Data Scientists are slightly different. The list additionally includes R and SAS but does not include Excel.
 
 ### 3. Top-paying Skills per Role
@@ -189,7 +189,7 @@ GROUP BY
     skills, role
 ```
 
-Similarly to question 2, I display the top-paying skills per role in bar chart created with Python.
+Similarly to question 2, I display the top-paying skills per role in a bar chart created with Python.
 
 ```py
 # Read data
@@ -319,14 +319,14 @@ display_optimal_skills('Data Scientist').head()
 
 **Insights**:
 - In addition to Python, cloud computing skills such as Snowflake, AWS, and Azure are important skills to learn as 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts.
-- For 🧑‍🔬 Data Scientists, Python-libraries for Machine Learning such as PyTorch, TensorFlow, and Scikit-learn are significant skills to learn.
+- For 🧑‍🔬 Data Scientists, Python libraries for Machine Learning such as PyTorch, TensorFlow, and Scikit-learn are significant skills to learn.
 
 # What I learned
 This project helped me to hone my SQL and Python skills 🛠️:
 
-- **Complex Query Crafting**: Mastered the art of advanced SQL, including merging tables, filtering data, and dealing WITH CTEs.
+- **Complex Query Crafting**: Mastered the art of advanced SQL, including merging tables, filtering data, and dealing `WITH` CTEs.
 
-- **Data Aggregation**: Became proficient in using `GROUP BY` and aggregate function such as `COUNT()` and `AVG()`.
+- **Data Aggregation**: Became proficient in using `GROUP BY` and aggregate functions such as `COUNT()` and `AVG()`.
 
 - **Data Cleaning**: Improved my data cleaning skills using the Python libraries `NumPy` and `Pandas`.
 
@@ -339,5 +339,5 @@ This project helped me to hone my SQL and Python skills 🛠️:
 1. **Average Salary per Role**: The average annual salary is highest for 🧑‍🔬 Data Scientists, followed by 🧑‍💻 Data Analysts and 👨‍💼 Business Analysts. All job roles are well paid with an average salary of over 80'000 USD per year.
 2. **Top Skills per Role**: The top five skills for 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts are very similar. For both roles, SQL and Excel lead the list. The top five skills for 🧑‍🔬 Data Scientists additionally include R and SAS but not Excel.
 3. **Top-paying Skills per Role**: For all job roles, the top-paying skills are relatively niche and differ greatly depending on the role.
-4. **Best Skills to Learn**: The best skills to learn are both high in demand and pay well. For 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts, cloud computing skills such as Snowflake or Azure are important to learn in addition to Python. For 🧑‍🔬 Data Scientists, knowing Python-libraries for Machine Learning such as Scikit-learn or PyTorch is crucial.
+4. **Best Skills to Learn**: The best skills to learn are both high in demand and pay well. For 👨‍💼 Business Analysts and 🧑‍💻 Data Analysts, cloud computing skills such as Snowflake or Azure are important to learn in addition to Python. For 🧑‍🔬 Data Scientists, knowing Python libraries for Machine Learning such as Scikit-learn or PyTorch is crucial.
 
