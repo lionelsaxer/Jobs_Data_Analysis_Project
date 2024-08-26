@@ -1,7 +1,7 @@
 # Introduction
 Dive into the data job market 💼 📊! Explore the top skills and salaries of 👨‍💼 Business Analysts, 🧑‍💻 Data Analysts, and 🧑‍🔬 Data Scientists.
 
-Check out the SQL queries here: [SQL queries](/queries/) \
+Check out the SQL queries here: [SQL queries](/sql_queries/) \
 Looking for the Python Code? Check out the Jupyter Notebook here: [Jupyter Notebook](/results.ipynb/)
 
 # Background
